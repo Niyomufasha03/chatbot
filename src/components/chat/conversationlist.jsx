@@ -1,55 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../LittleCompoenents/button";
+import NewConversation from "./newConverstaion";
+import { create_conversation } from "../../actions/actions";
+import { useDispatch } from "react-redux";
+import { action_types } from "../../actions/actions";
 
-const ConversationList = ({conversations, onSelect, onNew}) =>{
+const ConversationList = ({conversations, onSelect, active}) =>{
+
+    const [showNewConversation, setShowNewConversation] = useState(false)
+    const dispatch = useDispatch()
+    // the server should return another conversation
+    const handleNewConversation = (name)=>{
+        console.log("reached here");
+        const createConversation = create_conversation(name)
+        setShowNewConversation(false)
+        createConversation(dispatch)
+    }
+
+    const Logout = ()=>{
+        localStorage.setItem('token', undefined)
+        dispatch({
+            type : action_types.DE_AUTHENTICATE_USER
+        })
+    }
+
     return(
-        <div className="w-1/4 bg-blue-200 h-full p-4"
-        style={
+        <div className="w-1/5 bg-[#e2e8f0] h-full p-4">
             {
-                width : "20%",
-                backgroundColor : "#e2e8f0",
-                height : '98%',
-                padding : "8px",
-                borderRadius : "4px"
+                (showNewConversation) ? <NewConversation onCreate={handleNewConversation} /> : 
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-bold align-middle">Conversations</h2>
+                    <button className="w-20 bg-blue-500 ml-2 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 " onClick={()=>{setShowNewConversation(true)}}>new</button>
+                </div>
             }
-        }>
-            <div className="flex justify-between items-center mb-4"
-            style={{display:"flex", justifyContent:"space-between", alignItems : "center", marginBottom : "16px"}}>
-                <h2 className="text-sm font-bold" 
-                style={{fontSize:"1.125rem", fontWeight : "bold",}}>Conversations</h2>
-                <Button text={"New"} handleClick={onNew} width={"100px"}/>
-                {/* <button 
-                onClick={onNew}
-                className="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600" style={{
-                    backgroundColor: "#3b82f6",
-                    color:'white',
-                    padding: '8px 16px',
-                    borderRadius : '4px',
-                    cursor :'pointer',
-                    border : "none"
-                }}>
-                    New
-                </button> */}
-            </div>
             <ul style={{
                 listStyleType : "none"
             }}>
                 {conversations.map((conversation)=>{
                     return(
                         <li key={conversation.key} onClick={()=> onSelect(conversation.conversation_id)}
-                        className="p-2 bg-white mb-2 rounded-md shadow-md cursor-pointer hover:bg-gray-100" style={{
-                            padding : '8px 0px 8px 0px',
-                            width  : "100%",
-                            marginBottom :'8px',
-                            borderRadius : '4px',
-                            boxShadow : '0 1px rgba(0,0,0,0.1)',
-                            cursor : 'pointer'
-                        }}>
+                        className={`p-2 hover:bg-gray-100 mb-2 rounded-md cursor-pointer ${conversation.conversation_id === active ? 'bg-white' : 'transparent'} `}>
                             {conversation.conversation_name}
                         </li>
                     )
                 })}
             </ul>
+            <button onClick={Logout} className="bg-red-500 w-28 ml-2 h-6 absolute text-white bottom-3">Log out</button>
         </div>
     )
 }

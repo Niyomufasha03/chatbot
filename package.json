@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "author": "",
+  "author": "Destin  Niyomufasha <dniyomufasha@ppg.com>",
   "license": "ISC",
   "description": "",
   "devDependencies": {
@@ -41,5 +41,6 @@
     "react-redux": "^9.1.2",
     "react-router": "^6.25.1",
     "react-router-dom": "^6.25.1"
-  }
+  },
+  "repository": "https://github.com/Niyomufasha03/chatbot.git"
 }

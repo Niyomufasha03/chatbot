@@ -9,63 +9,20 @@ const ChatWindow = ({messages, onSend}) => {
         }
     }
     return(
-        <div className="w-3/4  flex flex-col h-full p-4 bg-gray-100"
-        style={{width : "100%", display : "flex", flexDirection :'column', height  : '99%', padding : '5px', backgroundColor : '#f3f4f6' }}>
-            <div className="flex-grow overflow-auto bg-white p-4 rounded-sm" style={{
-                flexGrow : 1, 
-                overflowY : 'auto',
-                backgroundColor : 'transparent',
-                padding : '16px',
-                borderRadius : '4px',
-                boxShadow : '0 1px 3px rgba(0,0,0, 0.1)',
-                display : "flex",
-                flexDirection : "column"
-            }}> {messages.map((message)=>{
+        <div className="w-full flex flex-col h-full p-1.5 bg-white">
+            <div className="flex-grow overflow-auto bg-[#f3f4f6] p-4 rounded shadow-sm flex flex-col"> {messages.map((message)=>{
                     console.log(message.sender);
-                    return(<div key={message.key} style={{
-                        marginBottom : '16px',
-                        padding : '10px 20px',
-                        borderRadius : message.sender == "user"? "15px 15px 0 15px" : "15px 15px 15px  0",
-                        maxWidth : '50%',
-                        wordWrap : "break-word",
-                        backgroundColor : message.sender == "user"  ? '#0b93f6' : "white",
-                        color : message.sender == "user" ? 'white' : "black",
-                        alignSelf : message.sender === "user" ? "flex-end"  : "flex-start",
-                    }} className={`mb-4 p-2 rounded-md max-w-xs ${message.sender === 'user' ? 'bg-blue-500 text-white self-end' : 'bg-gray-200 self-start'}`}>
+                    return(<div key={message.key} className={`mb-4 p-2 rounded-md max-w-xl ${message.sender === 'user' ? 'bg-blue-500 text-white self-end' : 'bg-gray-200 self-start'}`}>
                         {message.content}
                     </div>)
                 })}
             </div>
-            <div className="flex mt-4">
-                <input type="text"
-                style={{
-                    width : "90%",
-                    height : '1.5rem',
-                    flexGrow : 1,
-                    padding : '5px',
-                    border : 'none',
-                    borderRadius  : '4px 0 0 4px',
-                    outline : 'none',
-                    boxShadow : '0 1px 3px rgba(0,0,0, 0.1)'
-                }}
-                className="flex-grow p-2 border rounded-l-md focus:outline-none focus:rind focus:border-blue-300"
+            <div className="flex mt-4 mb-4">
+                <input type="text" className="flex-grow p-2 border rounded-l-md focus:outline-none focus:rind focus:border-blue-300"
                 value = {input}
                 onChange={(event)=>{setInput(event.target.value)}} 
                 onKeyDown={(event)=>{event.key == "Enter" && handleSend()}}/>
-                <button onClick={()=>{handleSend()}}
-                style={{
-                    height : '2.2rem',
-                    width : '3.5rem',
-                    backgroundColor : '#3b82f6',
-                    color : 'white',
-                    padding : '8px 8px',
-                    border : 'none',
-                    margin : '5px 5px 5px 10px',
-                    borderRadius : '0 4px 4px 0',
-                    cursor : 'pointer',
-                    boxShadow : '0 1px 3px rgba(0,0,0, 0.1)'
-                }}
-                 className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:rind focus:ring-blue-300">
+                <button onClick={()=>{handleSend()}} className="bg-blue-500 ml-2 w-20 text-white p-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:rind focus:ring-blue-300 mr-2">
                     Send
                 </button>
             </div>

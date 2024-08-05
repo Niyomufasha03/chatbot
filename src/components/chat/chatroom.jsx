@@ -40,12 +40,6 @@ const ChatRoom = ()=>{
         handleKeySelection(dispatch)
     }
 
-    // the server should return another conversation
-    const handleNewConversation = (name)=>{
-        const createConversation = create_conversation(name)
-        setShowNewConversation(false)
-        createConversation(dispatch)
-    }
 
     const handleSendMessage = (message)=>{
         console.log(conversationKey)
@@ -54,24 +48,15 @@ const ChatRoom = ()=>{
     }
 
     return(
-        <div className="chatroom" style={{display:"flex", height:"100%", backgroundColor:"white", fontFamily : "verdana, sans-serif", fontSize : "small"}}>
-            {showNewConversation?(
-            <NewConversation onCreate = {handleNewConversation}/>
-        ) : (
-            <div style={{
-                margin : "0",
-                display : "flex",
-                flexDirection : "row",
-                width : '100%'
-            }}>
+        <div className="flex h-full bg-white font-verdana text-xs">
+            <div className="flex flex-row w-full m-0">
                 <ConversationList
                 conversations = {conversations}
                 onSelect={handleSelectConvesation}
-                onNew={()=>{setShowNewConversation(true)}}/>
+                active = {conversationKey}/>
                 <ChatWindow messages = {messages}
             onSend = {handleSendMessage}/>
             </div>
-        )}
         </div>
     )
 }

@@ -9,6 +9,7 @@ export const authentication_reducer = produce((previousState, action)=>{
             previousState.authenticated = true
             break;
         case action_types.DE_AUTHENTICATE_USER:
+            console.log("reached here");
             previousState.authenticated = false
             break
         case action_types.AUTHENTICATION_ERROR:

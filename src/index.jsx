@@ -6,7 +6,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import { action_types } from "./actions/actions"
 import { Provider } from "react-redux"
 import { useNavigate } from "react-router"
-// import "./components/index.css"
+import './output.css'
 
 // const App = () => <div className="testing">React components belong here</div>
 // const navigate = useNavigate()
