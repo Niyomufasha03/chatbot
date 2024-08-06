@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./authentication/login";
+import Login from "./authentication/Login";
 import ChatRoom from "./chat/chatroom";
 import RequireAuth from "./authentication/auth_component";
 
