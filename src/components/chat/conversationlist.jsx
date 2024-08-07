@@ -30,7 +30,7 @@ const ConversationList = ({conversations, onSelect, active}) =>{
                 (showNewConversation) ? <NewConversation onCreate={handleNewConversation} /> : 
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold align-middle">Conversations</h2>
-                    <button className="w-20 bg-blue-500 ml-2 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 " onClick={()=>{setShowNewConversation(true)}}>new</button>
+                    <button className="w-12 h-6 text-xs bg-blue-500 ml-2 text-white rounded-sm hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 " onClick={()=>{setShowNewConversation(true)}}>new</button>
                 </div>
             }
             <ul style={{
@@ -45,7 +45,7 @@ const ConversationList = ({conversations, onSelect, active}) =>{
                     )
                 })}
             </ul>
-            <button onClick={Logout} className="bg-red-500 w-28 ml-2 h-6 absolute text-white bottom-3">Log out</button>
+            <button onClick={Logout} className="bg-red-400 rounded-sm w-28 ml-2 h-6 absolute text-white bottom-3">Log out</button>
         </div>
     )
 }
