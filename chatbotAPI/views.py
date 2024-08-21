@@ -166,6 +166,7 @@ class conversationViewSet(APIView):
     @api_view(("POST",))
     @permission_classes([IsAuthenticated])
     def handle_new_message(request):
+
         conversation = Conversation.objects.get(id = request.data["conversation_key"], owner = request.user)
         if conversation == None:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Conversation not found")
@@ -181,9 +182,11 @@ class conversationViewSet(APIView):
                 {request.data["content"]}
                 INSTRUCTIONS:
                 You are an assistant and you help people find information.
-                Answer the users QUESTION using the Questions and answer pairs in the DOCUMENT text above.
+                The above QUESTION is provided by a user, and he/she shoudln't know that you have the above documents.
+                Answer the user's QUESTION using the Questions and answer pairs in the DOCUMENT text above.
                 Keep your answer ground in the facts of the DOCUMENT. 
-                Make sure the response has string format identifiers such as '\n' , among others.
+
+                Provide your answer in a markdown formart that can be processed by marked library
         '''
         result = generate(prompt, messages)
         processed = process_response(result)
@@ -226,4 +229,7 @@ class conversationViewSet(APIView):
             serialized_conversation['name'] = request.data.get('new_name')
             return Response(data = serialized_conversation['new_name'], status = status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+
+
     
